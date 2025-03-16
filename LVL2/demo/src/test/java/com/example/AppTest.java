@@ -5,7 +5,11 @@ package com.example;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import java.util.Optional;
+
 
 public class AppTest 
 {
@@ -63,5 +67,29 @@ public class AppTest
 
 		assertThat(list1).containsOnlyOnce(s1);
 		assertThat(list1).doesNotContain(f1);
+	}
+
+	@Test
+	public void testHashMap(){
+		HashMap<String,String> testMap = new HashMap<>();
+		testMap.put("one", "1");
+		testMap.put("two", "2");
+		testMap.put("three", "3");
+
+		assertThat(testMap).containsKeys("one");
+		assertThat(testMap).containsValue("1");
+	}
+
+	@Test
+	public void testExceptionIndexOutOfRange(){
+		int[] arr = {1,2,3};
+		assertThatThrownBy(() -> {
+			int i = arr[3];
+		}).isInstanceOf(ArrayIndexOutOfBoundsException.class); 
+	}
+	@Test
+	public void testOptional(){
+		Optional<String> opt = Optional.empty();
+		assertThat(opt).isEmpty();
 	}
 }
